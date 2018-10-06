@@ -57,15 +57,3 @@ ENABLE_EMULATOR_KEY = 'enableEmulator'
 ENABLE_LOGGING_KEY  = 'enableLogging'
 POLL_CYCLES_KEY     = 'pollCycleSecs'
 
-
-class ConfigConst(object):
-    '''
-    classdocs
-    '''
-
-
-    def __init__(self, params):
-        '''
-        Constructor
-        '''
-        

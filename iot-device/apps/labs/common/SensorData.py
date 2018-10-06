@@ -4,62 +4,52 @@ Created on 2018年9月15日
 @author: xingli
 '''
 
+import os
+
 from datetime import datetime
- 
- 
-class SensorData():
-    timeStamp   = None
-    name        = 'Not set'
-    current  = 0
-    min      = 0
-    max      = 0
-    average  = 0
-    total    = 0
+
+class SensorData:
+    timeStamp = None
+    name = 'Not set'
+    #newVal = 0
+    curValue = 0
+    avgValue = 0
+    minValue = 0
+    maxValue = 0
+    totValue = 0
     sampleCount = 0
-     
-    def _init_(self):
+    
+    def __init__(self):
         self.timeStamp = str(datetime.now())
-        self.sampleCount = 0
-     
-    def addValue(self, new, name):
+    def addValue(self, newVal):
         self.sampleCount += 1
         self.timeStamp = str(datetime.now())
+        self.totValue += newVal
+        self.curValue = newVal
+        
+        if (self.curValue < self.minValue):
+            self.minValue = self.curValue
+        if (self.curValue > self.maxValue):
+            self.maxValue = self.curValue
+        if (self.totValue != 0 and self.sampleCount > 0):
+            self.avgValue = self.totValue / self.sampleCount
+    def getAvgValue(self):
+        return self.avgValue
+    def getMaxValue(self):
+        return self.maxValue
+    def getMinValue(self):
+        return self.minValue
+    def getValue(self):
+        return self.curValue
+    def setName(self, name):
         self.name = name
-        self.current = new
-        self.total += self.current
-        self.average = self.total / self.sampleCount
-
-        if (self.current < self.min):
-            self.min = self.current
-             
-        if (self.current > self.max):
-            self.max = self.current
-    
-            
-     
-    def getAverage(self):
-        return self.average
-     
-    def getMax(self):
-        return self.max
-     
-    def getMin(self):
-        return self.min
-     
-    def getCurrent(self):
-        return self.current
-     
-    def setName(self,name):
-        self.name = name
-     
     def __str__(self):
         customStr = \
-                   str(self.name + ':' + \
-                   '\n\tTime:      ' + self.timeStamp + \
-                   '\n\tCurrent:   ' + str(round(self.current,3)) + \
-                   '\n\tAverage:   ' + str(round(self.average,3)) + \
-                   '\n\tSamples:   ' + str(self.sampleCount) + \
-                   '\n\tMin:       ' + str(round(self.min,3)) + \
-                   '\n\tMax:       ' + str(round(self.max,3)))
-         
+            str(self.name + ':'        + \
+            os.linesep + '\tTime: '    + self.timeStamp + \
+            os.linesep + '\tCurrent: ' + str(self.curValue) + \
+            os.linesep + '\tAverage: ' + str(self.avgValue) + \
+            os.linesep + '\tSamples: ' + str(self.sampleCount) + \
+            os.linesep + '\tMin: '     + str(self.minValue) + \
+            os.linesep + '\tMax: '     + str(self.maxValue))
         return customStr

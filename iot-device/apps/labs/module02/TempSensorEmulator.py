@@ -12,11 +12,8 @@ class TempSensorEmulator():
     classdocs
     '''
     connector = SmtpClientConnector.SmtpClientConnector()
-    sensorData = SensorData.SensorData()
-    
+    sensorData = SensorData.SensorData() 
     alertDiff = 5
-    
-    
     def __init__(self, enableEmulator, lowVal, highVal, curTemp, isPrevTempSet):
         '''
         Constructor
@@ -31,7 +28,7 @@ class TempSensorEmulator():
         while True:
             if self.enableEmulator:
                 self.curTemp = uniform(float(self.lowVal), float(self.highVal))
-                self.sensorData.addValue(self.curTemp, "first sencor")
+                self.sensorData.addValue(self.curTemp)
                 print('\n--------------------') 
                 print('New sensor readings:') 
                 print(' ' + str(self.sensorData))
@@ -42,7 +39,7 @@ class TempSensorEmulator():
                     self.isPrevTempSet = True 
                 else:
 
-                    if (abs(self.curTemp - self.sensorData.getAverage()) >= self.alertDiff):
+                    if (abs(self.curTemp - self.sensorData.getAvgValue()) >= self.alertDiff):
 
                         print('\n Current temp exceeds average by > ' + str(self.alertDiff) + '. Triggeringalert...')
 

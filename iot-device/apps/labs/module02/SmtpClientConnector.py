@@ -13,9 +13,8 @@ class SmtpClientConnector(object):
     '''
     classdocs
     '''
-    config = ConfigUtil.ConfigUtil('')
-
     def __init__(self):
+        self.config = ConfigUtil.ConfigUtil('')
         '''
         Constructor
         '''

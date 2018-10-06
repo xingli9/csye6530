@@ -16,7 +16,6 @@ class ConfigUtil():
     
     def __init__(self,configFile):
         if(configFile != ''):
-            print("hellp")
             self.configfile = configFile
     
     def loadConfig(self):
