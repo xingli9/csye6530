@@ -11,7 +11,7 @@ sysPerfEmulator = TempSensorEmulator.TempSensorEmulator(True,0,30,0,True)
 
 print("Starting system performance app daemon thread...")
 #sysPerfAdaptor.setEnableAdaptorFlag(True)
-sysPerfEmulator.run()
+sysPerfEmulator.start()
 
 while (True):
     sleep(5)

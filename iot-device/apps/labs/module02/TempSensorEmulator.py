@@ -3,11 +3,12 @@ Created on 2018年9月15日
 
 @author: xingli
 '''
+import threading
 from time import sleep
 from random import uniform
 from labs.common import SensorData
 from labs.module02 import SmtpClientConnector
-class TempSensorEmulator():
+class TempSensorEmulator(threading.Thread):
     '''
     classdocs
     '''
@@ -15,9 +16,7 @@ class TempSensorEmulator():
     sensorData = SensorData.SensorData() 
     alertDiff = 5
     def __init__(self, enableEmulator, lowVal, highVal, curTemp, isPrevTempSet):
-        '''
-        Constructor
-        '''
+        super(TempSensorEmulator, self).__init__()
         self.enableEmulator = enableEmulator
         self.curTemp = curTemp
         self.lowVal = lowVal
