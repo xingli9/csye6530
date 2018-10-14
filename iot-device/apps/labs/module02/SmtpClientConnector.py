@@ -3,6 +3,8 @@ Created on 2018年9月15日
 
 @author: xingli
 '''
+import os,sys
+sys.path.append('/home/pi/Desktop/xing/iot-device/apps')
 from email.mime.multipart import MIMEMultipart
 from labs.common import ConfigUtil
 from labs.common import ConfigConst
@@ -15,9 +17,6 @@ class SmtpClientConnector(object):
     '''
     def __init__(self):
         self.config = ConfigUtil.ConfigUtil('')
-        '''
-        Constructor
-        '''
         self.config.loadConfig()
         print('Configuration data...\n' + str(self.config))
         
@@ -27,6 +26,7 @@ class SmtpClientConnector(object):
         fromAddr    = self.config.getProperty(ConfigConst.SMTP_CLOUD_SECTION, ConfigConst.FROM_ADDRESS_KEY)
         toAddr = self.config.getProperty(ConfigConst.SMTP_CLOUD_SECTION, ConfigConst.TO_ADDRESS_KEY)
         authToken   = self.config.getProperty(ConfigConst.SMTP_CLOUD_SECTION, ConfigConst.USER_AUTH_TOKEN_KEY)
+        nominalTemp = self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE, ConfigConst.NOMINAL_TEMP_KEY)
         
         msg = MIMEMultipart()
         msg['From'] = fromAddr

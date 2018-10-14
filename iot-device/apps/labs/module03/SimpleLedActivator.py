@@ -3,9 +3,12 @@ Created on Sep 28, 2018
 
 @author: xingli
 '''
+import os,sys
+sys.path.append('/home/pi/Desktop/xing/iot-device/apps')
 from time import sleep
 
 import threading
+import RPi.GPIO as GPIO
 
 # This next import is why we need the RPi.GPIO proxy class import RPi.GPIO as GPIO
 
@@ -42,7 +45,7 @@ class SimpleLedActivator(threading.Thread):
     
     def setEnableLedFlag(self, enable):
 
-        GPIO(17, GPIO.LOW)
+        GPIO.setup(17, GPIO.LOW)
         self.enableLed = enable
         
     

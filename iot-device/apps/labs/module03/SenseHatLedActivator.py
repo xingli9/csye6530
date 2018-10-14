@@ -30,19 +30,22 @@ class SenseHatLedActivator(threading.Thread):
         self.sh.set_rotation(self.rotateDeg)
         
     def run(self):
-
-        while True:
-
+        once = True
+        while once:
+            print('in run' + str(self.enableLed))
             if self.enableLed:
-
+                print('in self.enableled')
                 if self.displayMsg != None:
+                    print('in self.displaymsg')
                     self.sh.show_message(str(self.displayMsg))
+                    once = False
                 else:
 
                     self.sh.show_letter(str('R'))
 
                     sleep(self.rateInSec)
                     self.sh.clear()
+                    once = False
 
             sleep(self.rateInSec)
             

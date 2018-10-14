@@ -7,7 +7,7 @@ Created on 2018年9月15日
 import configparser
 import os
 
-Default_CONFIG_FILE = '/Users/xingli/Desktop/neu/class/2018fall/CSYE6530connectDevices/csye6530/iot-device/data/ConnectedDevicesConfig.props'
+Default_CONFIG_FILE = '/home/pi/Desktop/xing/iot-device/data/ConnectedDevicesConfig.props'
 
 class ConfigUtil():
     configfile = Default_CONFIG_FILE
@@ -19,7 +19,7 @@ class ConfigUtil():
             self.configfile = configFile
     
     def loadConfig(self):
-        print(Default_CONFIG_FILE)
+        #print(Default_CONFIG_FILE)
         if(os.path.exists(self.configfile)):
             self.configdata.read(self.configfile)
             self.isLoaded = True

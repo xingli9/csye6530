@@ -14,7 +14,7 @@ class SensorData:
     #newVal = 0
     curValue = 0
     avgValue = 0
-    minValue = 0
+    minValue = 30
     maxValue = 0
     totValue = 0
     sampleCount = 0

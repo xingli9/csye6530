@@ -44,4 +44,4 @@ class TempSensorEmulator(threading.Thread):
 
                         self.connector.publishMessage('Exceptional sensor data [test]', str(self.sensorData))
 
-            sleep(5)    
+            sleep(10)    

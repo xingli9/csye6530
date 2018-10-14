@@ -34,7 +34,7 @@ class ActuatorData(object):
     val = 0.0
 
 
-    def __init__(self, params):
+    def __init__(self):
         '''
         Constructor
         '''
@@ -50,15 +50,15 @@ class ActuatorData(object):
 
     def getStateData(self):
 
-        return self.stateDatae
+        return self.stateData
 
     def getStatusCode(self):
 
-        return self.statusCodee
+        return self.statusCode
 
     def getErrorCode(self):
 
-        return self.errorCode
+        return self.errCode
 
     def getValue(self):
 
