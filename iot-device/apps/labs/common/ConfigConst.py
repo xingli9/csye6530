@@ -7,7 +7,7 @@ Created on Sep 29, 2018
 '''
 
 SECTION_SEPARATOR = '.'
-DEFAULT_CONFIG_FILE_NAME = '/home/pi/Desktop/xing/iot-device/data/ConnectedDevicesConfig.props'
+DEFAULT_CONFIG_FILE_NAME = '/Users/xingli/Desktop/neu/class/2018fall/CSYE6530connectDevices/csye6530_old/iot-device/data/ConnectedDevicesConfig.props'
 
 #Option
 CLOUD              = 'cloud'

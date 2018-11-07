@@ -14,16 +14,13 @@ class TempActuatorEmulator():
     senseHatLedActivator = None
     simpleLedActivator = None
 
-
-
+    #Constructor
     def __init__(self):
-        '''
-        Constructor
-        '''
         self.actuatorData = ActuatorData()
         self.senseHatLedActivator = SenseHatLedActivator()
         self.simpleLedActivator = SimpleLedActivator()
         
+    #generate a message and run the activator
     def processMessage(self, ActuatorData):
         #print('processMessage...')
         self.actuatorData.updateData(ActuatorData)
@@ -31,7 +28,6 @@ class TempActuatorEmulator():
         if self.actuatorData.getCommand() == 0:
             #print('create msg-------')
             msg = "Temperature is " + str(abs(self.actuatorData.getValue())) + " degree lower than nominal temperature, open the cool function" 
-            #msg = str(abs(self.actuatorData.getValue()))
         if self.actuatorData.getCommand() == 1:
             msg = "Temperature is " + str(self.actuatorData.getValue()) + " degree higher than nominal temperature, open the heat function" 
         self.senseHatLedActivator.setEnableLedFlag(True)

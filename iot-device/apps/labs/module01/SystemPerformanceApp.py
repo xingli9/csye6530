@@ -10,9 +10,10 @@ sysPerfAdaptor = SystemPerformanceAdaptor.SystemPerformanceAdaptor()
 sysPerfAdaptor.daemon = True
 
 print("Starting system performance app daemon thread...")
-#sysPerfAdaptor.setEnableAdaptorFlag(True)
-sysPerfAdaptor.start()
+sysPerfAdaptor.setEnableAdaptorFlag(True) #set enableAdaptor to true
+sysPerfAdaptor.start() #start the run function in SystemPerformanceAdaptor
 
+#keep running
 while (True):
     sleep(5)
     pass

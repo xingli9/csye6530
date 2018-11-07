@@ -5,7 +5,6 @@ Created on Sep 28, 2018
 '''
 
 import os
-
 from datetime import datetime
 
 COMMAND_OFF = 0
@@ -21,9 +20,7 @@ ERROR_COMMAND_FAILED = 1
 ERROR_NON_RESPONSIBLE = -1
 
 class ActuatorData(object):
-    '''
-    classdocs
-    '''
+
     timeStamp = None
     name = 'Not set'
     hasError = False
@@ -33,74 +30,54 @@ class ActuatorData(object):
     stateData = None
     val = 0.0
 
-
+    #Constructor
     def __init__(self):
-        '''
-        Constructor
-        '''
         self.updateTimeStamp()
     
     def getCommand(self):
-
         return self.command
 
     def getName(self):
-
         return self.name
 
     def getStateData(self):
-
         return self.stateData
 
     def getStatusCode(self):
-
         return self.statusCode
 
     def getErrorCode(self):
-
         return self.errCode
 
     def getValue(self):
-
         return self.val;
 
     def hasError(self):
-
         return self.hasError
 
     def setCommand(self, command):
-
         self.command = command
 
     def setName(self, name):
-    
         self.name = name
 
     def setStateData(self, stateData):
-
         self.stateData = stateData
 
     def setStatusCode(self, statusCode):
-
         self.statusCode = statusCode
         
     def setErrorCode(self, errCode):
-
         self.errCode = errCode
-
         if (self.errCode != 0):
-
             self.hasError = True 
         else:
-
             self.hasError = False
 
     def setValue(self, val):
-
         self.val = val
 
     def updateData(self, data):
-
         self.command = data.getCommand()
         self.statusCode = data.getStatusCode()
         self.errCode = data.getErrorCode()
@@ -108,11 +85,10 @@ class ActuatorData(object):
         self.val = data.getValue()
 
     def updateTimeStamp(self):
-
         self.timeStamp = str(datetime.now())
         
+    #put all values into a string sentence
     def __str__(self):
-
         customStr = \
             str(self.name + ':' + \
                 os.linesep + '\tTime: ' + self.timeStamp + \

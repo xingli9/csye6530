@@ -21,6 +21,7 @@ class SmtpClientConnector(object):
         print('Configuration data...\n' + str(self.config))
         
     def publishMessage(self, topic, data):
+        #set the default value
         host    = self.config.getProperty(ConfigConst.SMTP_CLOUD_SECTION, ConfigConst.HOST_KEY)
         port    = self.config.getProperty(ConfigConst.SMTP_CLOUD_SECTION, ConfigConst.PORT_KEY)
         fromAddr    = self.config.getProperty(ConfigConst.SMTP_CLOUD_SECTION, ConfigConst.FROM_ADDRESS_KEY)
@@ -28,14 +29,13 @@ class SmtpClientConnector(object):
         authToken   = self.config.getProperty(ConfigConst.SMTP_CLOUD_SECTION, ConfigConst.USER_AUTH_TOKEN_KEY)
         nominalTemp = self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE, ConfigConst.NOMINAL_TEMP_KEY)
         
+        #set values in multipart
         msg = MIMEMultipart()
         msg['From'] = fromAddr
         msg['To'] = toAddr 
         msg['Subject'] = topic 
         msgBody = str(data)
-        
         msg.attach(MIMEText(msgBody))
-
         msgText = msg.as_string()
         
         # send e-mail notification 

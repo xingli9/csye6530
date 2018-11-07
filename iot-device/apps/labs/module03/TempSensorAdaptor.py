@@ -10,57 +10,55 @@ from time import sleep
 from random import uniform
 from labs.common import SensorData
 from labs.module02 import SmtpClientConnector
-
 from labs.common import ConfigUtil
 from labs.common import ConfigConst
 from labs.common.ActuatorData import ActuatorData
 from labs.module03.TempActuatorEmulator import TempActuatorEmulator
 
+DEFAULT_FATE_IN_SEC = 5
 class TempSensorAdaptor(threading.Thread):
-    '''
-    classdocs
-    '''
+    enableAdaptor   = False
     actuatorData = None
     tempActuatorEmulator = None
     connector = SmtpClientConnector.SmtpClientConnector()
     sensorData = SensorData.SensorData() 
     alertDiff = 5
-    def __init__(self, enableEmulator, lowVal, highVal, curTemp, isPrevTempSet):
-        super(TempSensorAdaptor, self).__init__()
-        self.enableEmulator = enableEmulator
-        self.curTemp = curTemp
-        self.lowVal = lowVal
-        self.highVal = highVal
-        self.isPrevTempSet = isPrevTempSet
-        
+    rateInSec       = DEFAULT_FATE_IN_SEC
+    enableEmulator = False
+    lowVal = 0
+    highVal = 30
+    curTemp = 0
+    isPrevTempSet = True
+    
+    #Constructor
+    def __init__(self):
+        super(TempSensorAdaptor, self).__init__()    
         self.config = ConfigUtil.ConfigUtil('')
         self.config.loadConfig()
         self.actuatorData = ActuatorData()
         self.tempActuatorEmulator = TempActuatorEmulator()
+    
+    #set enableEmulator      
+    def setEnableAdaptorFlag(self, flag):
+        self.enableAdaptor = flag
+        
     def run(self):
-        nominalTemp = int(self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE, ConfigConst.NOMINAL_TEMP_KEY))
+        nominalTemp = int(self.config.getProperty(ConfigConst.CONSTRAINED_DEVICE, ConfigConst.NOMINAL_TEMP_KEY)) #get the value of nominal temperature from ConfigConst class
         while True:
             if self.enableEmulator:
-                self.curTemp = uniform(float(self.lowVal), float(self.highVal))
-                #self.curTemp = 
-                self.sensorData.addValue(self.curTemp)
+                self.curTemp = uniform(float(self.lowVal), float(self.highVal))#get a emulated temperature
+                self.sensorData.addValue(self.curTemp) #add current temperature to SensorData class
                 print('\n--------------------') 
                 print('New sensor readings:') 
                 #print(' ' + str(self.sensorData))
-
-                if self.isPrevTempSet == False:
-
+                if self.isPrevTempSet == False: #skip if this is the first temperature
                     self.prevTemp = self.curTemp
                     self.isPrevTempSet = True 
                 else:
-
-                    if (abs(self.curTemp - self.sensorData.getAvgValue()) >= self.alertDiff):
-
+                    if (abs(self.curTemp - self.sensorData.getAvgValue()) >= self.alertDiff): #if the current temperature is larger or less than the average temperature more than the alert value, publish the message
                         print('\n Current temp exceeds average by > ' + str(self.alertDiff) + '. Triggeringalert...')
-
                         #self.connector.publishMessage('Exceptional sensor data [test]', str(self.sensorData))
-                    
-                    if (abs(self.curTemp - nominalTemp) > self.alertDiff):
+                    if (abs(self.curTemp - nominalTemp) > self.alertDiff): #if the current temperature is larger or less than the nominal temperature more than the alert level, run the actuator to adjust the temperature
                         print('\n+++++++++++++++++++') 
                         print('to the actuator:') 
                         val = self.curTemp - nominalTemp
@@ -72,5 +70,4 @@ class TempSensorAdaptor(threading.Thread):
                             print('val < 0')
                             self.actuatorData.setCommand(0)
                         self.tempActuatorEmulator.processMessage(self.actuatorData)
-
-            sleep(1)    
+            sleep(self.rateInSec)    

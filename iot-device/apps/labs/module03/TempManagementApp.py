@@ -8,12 +8,12 @@ sys.path.append('/home/pi/Desktop/xing/iot-device/apps')
 from time           import sleep
 from labs.module03 import TempSensorAdaptor
 
-sysPerfAdaptor = TempSensorAdaptor.TempSensorAdaptor(True,0,30,0,True)
-
+sysPerfAdaptor = TempSensorAdaptor.TempSensorAdaptor()
 print("Starting system performance app daemon thread...")
-#sysPerfAdaptor.setEnableAdaptorFlag(True)
-sysPerfAdaptor.start()
+sysPerfAdaptor.setEnableAdaptorFlag(True)#set enableAdaptor to true
+sysPerfAdaptor.start()#start the run function in TempSensorAdaptor
 
+#keep running
 while (True):
     sleep(5)
     pass
