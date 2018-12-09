@@ -17,20 +17,21 @@ class CoapSimpleClientConnector(object):
     host = "" 
     port = 5683
        
-    def __init__(self, newHost):
+    def __init__(self):
             print('\tHost: ' + self.host) 
             print('\tPort: ' + str(self.port))
             if not self.host or self.host.isspace(): 
                 print("Using default host: " + self.host)
             if self.port < 1024 or self.port > 65535: 
                 print("Using default port: " + self.port)
+
+            
+    #init the helper coap Client
+    def initClient(self, newHost):
+        try:
             self.host = newHost
             self.serverAddr = (self.host, self.port)
             self.url = "coap://" + self.host + ":" + str(self.port)
-            
-    #init the helper coap Client
-    def initClient(self): 
-        try:
             self.client = HelperClient(server=(self.host, self.port))
             print("Created CoAP client ref: " + str(self.client))
             print(self.url) 
