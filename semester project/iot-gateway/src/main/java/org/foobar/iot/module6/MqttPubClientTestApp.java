@@ -45,8 +45,8 @@ public class MqttPubClientTestApp {
 	public void start() {
 		_mqttClient = new MqttClientConnection();
 		_mqttClient.connect();
-		String topicName = "xingli";
-		String payload = "This is a test2.";
+		String topicName = "Temp";
+		String payload = "1111111";
 		_mqttClient.publishMessage(topicName, 2, payload.getBytes());
 		_mqttClient.disconnect();
 	}

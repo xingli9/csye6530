@@ -59,7 +59,7 @@ public class CoAPServerConnection {
 	 */
 	public void initServer() {
 		_coapServer = new CoapServer();
-		ResourceTemp resourceTemp = new ResourceTemp("temp");
+		ResourceTemp resourceTemp = new ResourceTemp("myHomeTemperature");
 		ResourceHumidity resourceHumidity = new ResourceHumidity("humidity");
 		addResource(resourceTemp);
 		addResource(resourceHumidity);

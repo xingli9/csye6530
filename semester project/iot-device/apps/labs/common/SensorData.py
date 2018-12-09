@@ -17,19 +17,16 @@ class SensorData:
     maxValue = 0
     totValue = 0
     sampleCount = 0
-    nv = 0
     
     #Constructor
     def __init__(self):
         self.timeStamp = str(datetime.now())
     
     #add new value, and reset the other values
-    def addValue(self, newVal, name):
+    def addValue(self, newVal):
         self.sampleCount += 1
         self.timeStamp = str(datetime.now())
-        self.name = name
-        self.nv= newVal
-        self.totValue = self.totValue + self.nv
+        self.totValue += newVal
         self.curValue = newVal
         
         if (self.curValue < self.minValue):
